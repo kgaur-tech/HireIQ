@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HireIQ | Uploading Section</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg-primary: #020617;
+      --bg-secondary: #07111f;
+      --panel: rgba(15, 23, 42, 0.72);
+      --border: rgba(255, 255, 255, 0.08);
+      --text: #ffffff;
+      --muted: #cbd5e1;
+      --text-dim: #94a3b8;
+      --blue: #4da3ff;
+      --blue-soft: rgba(77, 163, 255, 0.12);
+      --blue-glow: rgba(77, 163, 255, 0.18);
+      --red: #ff5d5d;
+      --red-soft: rgba(255, 93, 93, 0.12);
+      --red-glow: rgba(255, 93, 93, 0.16);
+      --radius: 24px;
+      --font-family: "Inter", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: var(--font-family);
+      background:
+        radial-gradient(circle at top left, var(--blue-soft), transparent 32%),
+        radial-gradient(circle at top right, var(--red-soft), transparent 28%),
+        linear-gradient(180deg, var(--bg-secondary), var(--bg-primary));
+      color: var(--text);
+    }
+
+    .page {
+      width: min(1040px, calc(100vw - 24px));
+      margin: 0 auto;
+      padding: 22px 0 28px;
+    }
+
+    .panel {
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background: var(--panel);
+      padding: 24px;
+      box-shadow: 0 0 20px rgba(77, 163, 255, 0.10);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+
+    .eyebrow {
+      margin: 0 0 10px;
+      color: var(--blue);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      font-size: clamp(30px, 4vw, 44px);
+      letter-spacing: -0.04em;
+    }
+
+    .subtitle {
+      margin: 0;
+      color: var(--text-dim);
+      line-height: 1.7;
+      max-width: 760px;
+    }
+
+    .grid {
+      margin-top: 18px;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .card {
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.03);
+      padding: 18px;
+      min-height: 180px;
+      box-shadow: 0 0 18px rgba(77, 163, 255, 0.08);
+    }
+
+    .card--resume {
+      grid-column: 1 / -1;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      background:
+        radial-gradient(circle at top right, rgba(77, 163, 255, 0.08), transparent 35%),
+        rgba(255, 255, 255, 0.03);
+    }
+
+    .card__badge {
+      display: inline-flex;
+      align-self: flex-start;
+      padding: 7px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text-dim);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .card__title {
+      margin: 0 0 10px;
+      font-size: 18px;
+    }
+
+    .card__text {
+      margin: 0;
+      color: var(--text-dim);
+      line-height: 1.7;
+      font-size: 13px;
+    }
+
+    .upload-box {
+      border-radius: 18px;
+      border: 1px solid rgba(77, 163, 255, 0.22);
+      background:
+        radial-gradient(circle at top right, rgba(77, 163, 255, 0.10), transparent 32%),
+        rgba(255, 255, 255, 0.03);
+      padding: 18px;
+      display: grid;
+      gap: 14px;
+      box-shadow: 0 0 18px rgba(77, 163, 255, 0.08);
+    }
+
+    .upload-box__top {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .upload-box__icon {
+      width: 46px;
+      height: 46px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+      background: rgba(77, 163, 255, 0.18);
+      border: 1px solid rgba(77, 163, 255, 0.32);
+      color: #e4f2ff;
+      font-size: 18px;
+    }
+
+    .upload-box__title {
+      margin: 0 0 6px;
+      font-size: 15px;
+      font-weight: 800;
+    }
+
+    .upload-box__text {
+      margin: 0;
+      color: var(--text-dim);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .field {
+      margin-top: 0;
+      display: grid;
+      gap: 8px;
+    }
+
+    .label {
+      color: var(--text-dim);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .input {
+      width: 100%;
+      min-height: 46px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--text);
+      padding: 12px 14px;
+      outline: none;
+      font: inherit;
+    }
+
+    .input[type="file"] {
+      padding: 10px 14px;
+      cursor: pointer;
+    }
+
+    .input::placeholder {
+      color: #808080;
+    }
+
+    .input:focus {
+      border-color: rgba(77, 163, 255, 0.5);
+      box-shadow: 0 0 0 3px rgba(77, 163, 255, 0.12);
+    }
+
+    .actions {
+      margin-top: 18px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .button {
+      height: 44px;
+      padding: 0 16px;
+      border: 0;
+      border-radius: 14px;
+      font: inherit;
+      font-weight: 800;
+      cursor: pointer;
+      transition: transform 180ms ease;
+    }
+
+    .button:hover {
+      transform: translateY(-1px);
+    }
+
+    .button--blue {
+      background: var(--blue);
+      color: #fff;
+    }
+
+    .button--red {
+      background: var(--red);
+      color: #fff;
+    }
+
+    .button--ghost {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
+      color: #fff;
+    }
+
+    .note {
+      margin-top: 14px;
+      color: var(--text-dim);
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    .file-meta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-dim);
+      font-size: 12px;
+    }
+
+    .file-pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(77, 163, 255, 0.22);
+      background: rgba(77, 163, 255, 0.08);
+      color: #d7ebff;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .status-message {
+      margin: 12px 0;
+      padding: 12px 14px;
+      border-radius: 12px;
+      font-size: 13px;
+      line-height: 1.5;
+      border: 1px solid transparent;
+      display: none;
+    }
+
+    .status-message:not([hidden]) {
+      display: block;
+    }
+
+    .status--success {
+      background: rgba(34, 197, 94, 0.1);
+      border-color: rgba(34, 197, 94, 0.3);
+      color: #c7f9d5;
+    }
+
+    .status--error {
+      background: rgba(239, 68, 68, 0.1);
+      border-color: rgba(239, 68, 68, 0.3);
+      color: #fecaca;
+    }
+
+    .button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    @media (max-width: 880px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+      .page {
+        width: min(100vw - 16px, 100vw);
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="panel">
+      <p class="eyebrow">Uploading Section</p>
+      <h1>Complete analysis upload</h1>
+      <p class="subtitle">
+        Ye black page LinkedIn ID, GitHub ID aur resume upload ke liye hai. Teeno optional hain, aap sirf jo
+        chaho wo add kar sakte ho.
+      </p>
+
+      <div class="grid">
+        <article class="card">
+          <p class="card__badge">Optional</p>
+          <h2 class="card__title">GitHub Profile</h2>
+          <p class="card__text">GitHub profile URL se coding presence aur project contributions ko analyze kiya jaayega.</p>
+          <div class="field">
+            <span class="label">GitHub URL</span>
+            <input class="input" id="githubUrl" type="url" placeholder="https://github.com/your-username" />
+          </div>
+        </article>
+
+        <article class="card">
+          <p class="card__badge">Optional</p>
+          <h2 class="card__title">LinkedIn Profile</h2>
+          <p class="card__text">LinkedIn profile se professional background aur experience signals ko extract kiya jaayega.</p>
+          <div class="field">
+            <span class="label">LinkedIn URL</span>
+            <input class="input" id="linkedinUrl" type="url" placeholder="https://linkedin.com/in/your-profile" />
+          </div>
+        </article>
+
+        <article class="card card--resume">
+          <p class="card__badge">Required</p>
+          <h2 class="card__title">Resume Upload</h2>
+          <p class="card__text">Resume file upload karke complete ATS analysis aur skill matching kiya jaayega.</p>
+
+          <div class="upload-box">
+            <div class="upload-box__top">
+              <div class="upload-box__icon" aria-hidden="true">📄</div>
+              <div>
+                <p class="upload-box__title">Upload your resume</p>
+                <p class="upload-box__text">
+                  PDF, DOC, ya DOCX file select karo. File size 5MB se kam hona chahiye.
+                </p>
+              </div>
+            </div>
+
+            <div class="field">
+              <span class="label">Resume File (PDF, DOC, DOCX)</span>
+              <input class="input" id="resumeFile" type="file" accept=".pdf,.doc,.docx" required />
+            </div>
+            <div id="fileName" class="file-meta">No file selected</div>
+          </div>
+        </article>
+
+        <article class="card card--resume">
+          <p class="card__badge">Optional</p>
+          <h2 class="card__title">Job Description</h2>
+          <p class="card__text">Target job description paste karke resume ko us specific role ke liye match kiya ja sakta hai.</p>
+
+          <div class="field">
+            <span class="label">Job Description</span>
+            <textarea
+              class="input"
+              id="jobDescription"
+              placeholder="Paste the job description here..."
+              style="resize: vertical; min-height: 120px; padding: 12px 14px;"
+            ></textarea>
+          </div>
+        </article>
+      </div>
+
+      <div id="statusMessage" class="status-message" hidden></div>
+
+      <div class="actions">
+        <button class="button button--blue" type="button" id="analyzeButton">Analyze Resume</button>
+        <button class="button button--ghost" type="button" id="backBtn">Back</button>
+      </div>
+
+      <p class="note">
+        Aapka resume complete ATS analysis se guzrega jo resume parsing, GitHub analysis, LinkedIn insights aur AI-powered recommendations provide karega.
+      </p>
+    </section>
+  </main>
+
+  <script src="uploading-section.js"></script>
+  <script>
+    document.getElementById("backBtn").addEventListener("click", () => {
+      window.location.href = "interview-choice.html";
+    });
+  </script>
+</body>
+</html>

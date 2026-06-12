@@ -1,0 +1,1207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HireIQ | Interview</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg-primary: #020617;
+      --bg-secondary: #07111f;
+      --panel: rgba(15, 23, 42, 0.72);
+      --panel-strong: rgba(15, 23, 42, 0.84);
+      --border: rgba(255, 255, 255, 0.08);
+      --border-strong: rgba(255, 255, 255, 0.12);
+      --text-primary: #ffffff;
+      --text-secondary: #cbd5e1;
+      --text-muted: #94a3b8;
+      --blue: #4da3ff;
+      --blue-soft: rgba(77, 163, 255, 0.12);
+      --blue-glow: rgba(77, 163, 255, 0.18);
+      --red: #ff5d5d;
+      --red-soft: rgba(255, 93, 93, 0.12);
+      --red-glow: rgba(255, 93, 93, 0.18);
+      --green: #22c55e;
+      --green-soft: rgba(34, 197, 94, 0.12);
+      --yellow: #f59e0b;
+      --radius: 24px;
+      --radius-md: 16px;
+      --radius-sm: 12px;
+      --font-family: "Inter", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: var(--font-family);
+      color: var(--text-primary);
+      background:
+        radial-gradient(circle at top left, var(--blue-soft), transparent 30%),
+        radial-gradient(circle at top right, var(--red-soft), transparent 28%),
+        linear-gradient(180deg, var(--bg-secondary), var(--bg-primary));
+    }
+
+    button, textarea {
+      font: inherit;
+    }
+
+    .page {
+      width: min(1240px, calc(100vw - 24px));
+      margin: 0 auto;
+      padding: 20px 0 28px;
+    }
+
+    .hero, .panel, .mini-panel, .stat-card, .feedback-card, .camera-box, .modal-card {
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background: var(--panel);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      box-shadow: 0 0 20px rgba(77, 163, 255, 0.10);
+    }
+
+    .hero {
+      padding: 24px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: -100px auto auto -120px;
+      width: 280px;
+      height: 280px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(77, 163, 255, 0.16), transparent 66%);
+      pointer-events: none;
+    }
+
+    .eyebrow {
+      margin: 0 0 10px;
+      color: var(--blue);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    h1, h2, h3, p {
+      margin-top: 0;
+    }
+
+    .hero__head {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: flex-start;
+    }
+
+    .title {
+      margin: 0 0 10px;
+      font-size: clamp(30px, 4vw, 48px);
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+    }
+
+    .subtitle {
+      margin: 0;
+      max-width: 820px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      font-size: 15px;
+    }
+
+    .hero__stats {
+      position: relative;
+      z-index: 1;
+      margin-top: 18px;
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .hero-stat {
+      padding: 16px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.03);
+      min-height: 104px;
+    }
+
+    .hero-stat__label {
+      margin: 0 0 8px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .hero-stat__value {
+      margin: 0 0 6px;
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+    }
+
+    .hero-stat__text {
+      margin: 0;
+      color: var(--text-secondary);
+      font-size: 12px;
+      line-height: 1.55;
+    }
+
+    .workspace {
+      margin-top: 16px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(340px, 0.9fr);
+      gap: 16px;
+      align-items: start;
+    }
+
+    .panel {
+      padding: 18px;
+    }
+
+    .section {
+      padding: 16px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.03);
+    }
+
+    .section + .section {
+      margin-top: 14px;
+    }
+
+    .section__head {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: flex-start;
+      margin-bottom: 12px;
+    }
+
+    .section__title {
+      margin: 0;
+      font-size: 18px;
+      letter-spacing: -0.03em;
+    }
+
+    .section__desc {
+      margin: 6px 0 0;
+      color: var(--text-secondary);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      padding: 7px 10px;
+      font-size: 12px;
+      font-weight: 800;
+      border: 1px solid transparent;
+      white-space: nowrap;
+    }
+
+    .badge--blue {
+      background: var(--blue-soft);
+      border-color: rgba(77, 163, 255, 0.22);
+      color: #d7ebff;
+    }
+
+    .badge--red {
+      background: var(--red-soft);
+      border-color: rgba(255, 93, 93, 0.22);
+      color: #ffd4d4;
+    }
+
+    .badge--green {
+      background: var(--green-soft);
+      border-color: rgba(34, 197, 94, 0.22);
+      color: #c7f9d5;
+    }
+
+    .badge--neutral {
+      background: rgba(255,255,255,0.05);
+      border-color: var(--border);
+      color: var(--text-secondary);
+    }
+
+    .left, .right {
+      display: grid;
+      gap: 14px;
+    }
+
+    .interviewer-card {
+      display: grid;
+      grid-template-columns: 72px 1fr auto;
+      gap: 14px;
+      align-items: center;
+    }
+
+    .avatar {
+      width: 72px;
+      height: 72px;
+      border-radius: 22px;
+      display: grid;
+      place-items: center;
+      font-size: 30px;
+      font-weight: 800;
+      background:
+        radial-gradient(circle at top left, rgba(77,163,255,0.22), transparent 55%),
+        linear-gradient(135deg, rgba(77,163,255,0.16), rgba(255,93,93,0.12));
+      border: 1px solid rgba(255,255,255,0.10);
+      box-shadow: 0 0 20px rgba(77, 163, 255, 0.12);
+    }
+
+    .interviewer-card__title {
+      margin: 0 0 8px;
+      font-size: 18px;
+    }
+
+    .interviewer-card__meta {
+      margin: 0;
+      color: var(--text-secondary);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .status-line {
+      margin-top: 10px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border-radius: 999px;
+      padding: 8px 12px;
+      background: rgba(255,255,255,0.04);
+      color: var(--text-secondary);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 12px rgba(34,197,94,0.55);
+    }
+
+    .progress__top {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 10px;
+      color: var(--text-secondary);
+      font-size: 13px;
+    }
+
+    .progress-bar {
+      height: 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.06);
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+
+    .progress-bar__fill {
+      width: 30%;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--blue), var(--red));
+      box-shadow: 0 0 18px rgba(77,163,255,0.18);
+    }
+
+    .question-box {
+      display: grid;
+      gap: 12px;
+    }
+
+    .question-box__text {
+      margin: 0;
+      font-size: 17px;
+      line-height: 1.7;
+      color: var(--text-primary);
+    }
+
+    .question-box__hint {
+      margin: 0;
+      color: var(--text-muted);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .audio-actions, .voice-actions, .action-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .button {
+      height: 44px;
+      padding: 0 16px;
+      border: 0;
+      border-radius: var(--radius-md);
+      font: inherit;
+      font-weight: 800;
+      cursor: pointer;
+      transition: transform 180ms ease, background 180ms ease, opacity 180ms ease;
+    }
+
+    .button:hover { transform: translateY(-1px); }
+
+    .button--blue { background: var(--blue); color: #fff; }
+    .button--blue:hover { background: #60aeff; }
+    .button--red { background: var(--red); color: #fff; }
+    .button--red:hover { background: #ff7474; }
+    .button--ghost {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      color: var(--text-primary);
+    }
+
+    .textarea {
+      width: 100%;
+      min-height: 170px;
+      resize: vertical;
+      border-radius: 18px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.03);
+      color: var(--text-primary);
+      padding: 14px;
+      outline: none;
+      line-height: 1.7;
+    }
+
+    .textarea:focus {
+      border-color: rgba(77,163,255,0.45);
+      box-shadow: 0 0 0 3px rgba(77,163,255,0.12);
+    }
+
+    .camera-box {
+      min-height: 200px;
+      display: grid;
+      place-items: center;
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at top, rgba(255,93,93,0.14), transparent 36%),
+        rgba(255,255,255,0.03);
+    }
+
+    .camera-box__frame {
+      width: 100%;
+      min-height: 180px;
+      border-radius: 18px;
+      border: 1px dashed rgba(255,255,255,0.16);
+      display: grid;
+      place-items: center;
+      color: var(--text-muted);
+      text-align: center;
+      padding: 16px;
+      background: rgba(0,0,0,0.10);
+    }
+
+    .signals {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .signal {
+      padding: 14px;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.03);
+    }
+
+    .signal__label {
+      margin: 0 0 8px;
+      color: var(--text-muted);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-weight: 700;
+    }
+
+    .signal__value {
+      margin: 0 0 8px;
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+    }
+
+    .signal__bar {
+      height: 8px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.06);
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+
+    .signal__fill {
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--blue), var(--red));
+    }
+
+    .feedback-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .feedback-card {
+      padding: 14px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.03);
+    }
+
+    .feedback-card__title {
+      margin: 0 0 8px;
+      font-size: 13px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--blue);
+    }
+
+    .feedback-card__text {
+      margin: 0;
+      color: var(--text-secondary);
+      line-height: 1.65;
+      font-size: 13px;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .stat-card {
+      padding: 14px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.03);
+    }
+
+    .stat-card__label {
+      margin: 0 0 8px;
+      color: var(--text-muted);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-weight: 700;
+    }
+
+    .stat-card__value {
+      margin: 0;
+      font-size: 22px;
+      font-weight: 800;
+    }
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      background: rgba(2, 6, 23, 0.74);
+      backdrop-filter: blur(8px);
+      z-index: 50;
+    }
+
+    .modal[aria-hidden="false"] {
+      display: flex;
+    }
+
+    .modal-card {
+      width: min(760px, 100%);
+      padding: 22px;
+      background: var(--panel-strong);
+    }
+
+    .modal__grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin: 16px 0;
+    }
+
+    .modal__metric {
+      padding: 14px;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.03);
+    }
+
+    .modal__metric-label {
+      margin: 0 0 8px;
+      color: var(--text-muted);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-weight: 700;
+    }
+
+    .modal__metric-value {
+      margin: 0;
+      font-size: 20px;
+      font-weight: 800;
+    }
+
+    .recommendation {
+      margin: 0;
+      color: #d7ebff;
+      font-weight: 700;
+    }
+
+    @media (max-width: 1080px) {
+      .hero__stats {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .workspace {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .page {
+        width: min(100vw - 16px, 100vw);
+      }
+
+      .hero__head {
+        flex-direction: column;
+      }
+
+      .hero__stats,
+      .signals,
+      .stats-grid,
+      .modal__grid {
+        grid-template-columns: 1fr;
+      }
+
+      .interviewer-card {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="hero">
+      <div class="hero__head">
+        <div>
+          <p class="eyebrow">Interview Session</p>
+          <h1 class="title">AI-powered interview experience</h1>
+          <p class="subtitle">
+            This session is tailored to your selected track and skills. The candidate sees live progress, current status,
+            and session metrics in one place while the AI interviewer guides the flow.
+          </p>
+        </div>
+        <span class="badge badge--blue" id="sessionStatus">Live Interview</span>
+      </div>
+
+      <div class="hero__stats">
+        <article class="hero-stat">
+          <p class="hero-stat__label">Interview Title</p>
+          <p class="hero-stat__value" id="heroTitle">HireIQ Mock Interview</p>
+          <p class="hero-stat__text">Structured interview session for selected role.</p>
+        </article>
+        <article class="hero-stat">
+          <p class="hero-stat__label">Selected Role</p>
+          <p class="hero-stat__value" id="heroRole">Full Stack Developer</p>
+          <p class="hero-stat__text">Pulled from your previous journey selection.</p>
+        </article>
+        <article class="hero-stat">
+          <p class="hero-stat__label">Questions</p>
+          <p class="hero-stat__value"><span id="answeredCount">0</span> / <span id="totalQuestions">10</span></p>
+          <p class="hero-stat__text">Current question progress.</p>
+        </article>
+        <article class="hero-stat">
+          <p class="hero-stat__label">Timer</p>
+          <p class="hero-stat__value" id="timerValue">18:00</p>
+          <p class="hero-stat__text">Estimated session duration remaining.</p>
+        </article>
+        <article class="hero-stat">
+          <p class="hero-stat__label">Status</p>
+          <p class="hero-stat__value" id="heroStatus">Waiting</p>
+          <p class="hero-stat__text">Live state of the interview.</p>
+        </article>
+        <article class="hero-stat">
+          <p class="hero-stat__label">Completion</p>
+          <p class="hero-stat__value" id="completionValue">0%</p>
+          <p class="hero-stat__text">Overall interview completion.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="workspace">
+      <div class="left">
+        <section class="panel">
+          <div class="section__head">
+            <div>
+              <h2 class="section__title">AI Interviewer</h2>
+              <p class="section__desc">Candidate sees interviewer identity and the current speaking state.</p>
+            </div>
+            <span class="badge badge--neutral" id="interviewerState">Listening</span>
+          </div>
+
+          <div class="interviewer-card">
+            <div class="avatar" aria-hidden="true">AI</div>
+            <div>
+              <h3 class="interviewer-card__title">HireIQ Interviewer</h3>
+              <p class="interviewer-card__meta">
+                Focused on your selected track, skills, and answer depth. The assistant adapts question flow based on your response quality.
+              </p>
+              <div class="status-line"><span class="status-dot"></span><span id="liveStatusText">Listening for answer input</span></div>
+            </div>
+            <span class="badge badge--green">Active</span>
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="section__head">
+            <div>
+              <h2 class="section__title">Question Progress</h2>
+              <p class="section__desc">Current question number and session progress.</p>
+            </div>
+            <span class="badge badge--blue" id="progressLabel">Question 1 of 10</span>
+          </div>
+          <div class="progress__top">
+            <span id="currentQuestionLabel">Current question: 1</span>
+            <span id="progressPercentLabel">10%</span>
+          </div>
+          <div class="progress-bar" aria-hidden="true">
+            <div class="progress-bar__fill" id="progressFill"></div>
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="section__head">
+            <div>
+              <h2 class="section__title">Current Question</h2>
+              <p class="section__desc">The interviewer question and helpful hints appear here.</p>
+            </div>
+            <span class="badge badge--red">AI Prompt</span>
+          </div>
+          <div class="question-box">
+            <p class="question-box__text" id="questionText">
+              Explain how you would design a scalable authentication flow for a full stack application.
+            </p>
+            <p class="question-box__hint" id="questionHint">
+              Hint: mention token management, password security, session handling, and refresh strategies.
+            </p>
+
+            <div class="audio-actions">
+              <button class="button button--ghost" type="button" id="replayBtn">Replay Question</button>
+              <button class="button button--ghost" type="button" id="voiceToggleBtn" aria-pressed="false">Voice Playback Off</button>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="section__head">
+            <div>
+              <h2 class="section__title">Answer Area</h2>
+              <p class="section__desc">Type your response before submitting.</p>
+            </div>
+            <span class="badge badge--neutral" id="answerState">Draft</span>
+          </div>
+          <textarea class="textarea" id="answerInput" placeholder="Type your answer here..."></textarea>
+
+          <div class="section" style="margin-top: 14px;">
+            <div class="section__head">
+              <div>
+                <h2 class="section__title" style="font-size:16px;">Voice Input</h2>
+                <p class="section__desc">Use microphone input for speech-style answering.</p>
+              </div>
+            </div>
+            <div class="voice-actions">
+              <button class="button button--blue" type="button" id="micStartBtn">Start Mic</button>
+              <button class="button button--ghost" type="button" id="micStopBtn">Stop Mic</button>
+              <span class="badge badge--neutral" id="micStatus">Mic off</span>
+            </div>
+          </div>
+
+          <div class="action-row" style="margin-top: 14px;">
+            <button class="button button--ghost" type="button" id="skipBtn">Skip Question</button>
+            <button class="button button--blue" type="button" id="submitBtn">Submit Answer</button>
+            <button class="button button--red" type="button" id="endBtn">End Session</button>
+            <button class="button button--ghost" type="button" id="reportBtn">Report</button>
+          </div>
+        </section>
+      </div>
+
+      <div class="right">
+        <section class="panel">
+          <div class="section__head">
+            <div>
+              <h2 class="section__title">Live Camera Preview</h2>
+              <p class="section__desc">Turn webcam on or off and view the camera feed here.</p>
+            </div>
+            <span class="badge badge--neutral" id="cameraState">Camera Off</span>
+          </div>
+          <div class="camera-box">
+            <div class="camera-box__frame" id="cameraFrame">
+              <div>
+                <strong>Webcam preview area</strong>
+                <p style="margin: 8px 0 0; color: var(--text-muted);">Camera is currently disabled.</p>
+              </div>
+            </div>
+          </div>
+          <div class="voice-actions" style="margin-top: 12px;">
+            <button class="button button--blue" type="button" id="cameraOnBtn">Camera On</button>
+            <button class="button button--ghost" type="button" id="cameraOffBtn">Camera Off</button>
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="section__head">
+            <div>
+              <h2 class="section__title">Candidate Signals</h2>
+              <p class="section__desc">Live monitoring metrics for the candidate.</p>
+            </div>
+          </div>
+          <div class="signals">
+            <article class="signal">
+              <p class="signal__label">Confidence</p>
+              <p class="signal__value" id="confidenceValue">78%</p>
+              <div class="signal__bar"><div class="signal__fill" style="width:78%"></div></div>
+            </article>
+            <article class="signal">
+              <p class="signal__label">Communication</p>
+              <p class="signal__value" id="communicationValue">82%</p>
+              <div class="signal__bar"><div class="signal__fill" style="width:82%"></div></div>
+            </article>
+            <article class="signal">
+              <p class="signal__label">Engagement</p>
+              <p class="signal__value" id="engagementValue">74%</p>
+              <div class="signal__bar"><div class="signal__fill" style="width:74%"></div></div>
+            </article>
+            <article class="signal">
+              <p class="signal__label">Speaking Pace</p>
+              <p class="signal__value" id="paceValue">Normal</p>
+              <div class="signal__bar"><div class="signal__fill" style="width:66%"></div></div>
+            </article>
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="section__head">
+            <div>
+              <h2 class="section__title">AI Feedback</h2>
+              <p class="section__desc">Strengths, weaknesses, and scoring after each answer.</p>
+            </div>
+            <span class="badge badge--green" id="answerScore">Score 0/10</span>
+          </div>
+          <div class="feedback-list" id="feedbackList">
+            <article class="feedback-card">
+              <h3 class="feedback-card__title">Strengths</h3>
+              <p class="feedback-card__text">Your response strengths will appear after submission.</p>
+            </article>
+            <article class="feedback-card">
+              <h3 class="feedback-card__title">Weaknesses</h3>
+              <p class="feedback-card__text">Any gaps or missing points will be highlighted here.</p>
+            </article>
+            <article class="feedback-card">
+              <h3 class="feedback-card__title">Scoring</h3>
+              <p class="feedback-card__text">Answer score is updated after each submission.</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="section__head">
+            <div>
+              <h2 class="section__title">Session Statistics</h2>
+              <p class="section__desc">At a glance interview session metrics.</p>
+            </div>
+          </div>
+          <div class="stats-grid">
+            <article class="stat-card">
+              <p class="stat-card__label">Answered</p>
+              <p class="stat-card__value" id="statAnswered">0</p>
+            </article>
+            <article class="stat-card">
+              <p class="stat-card__label">Remaining</p>
+              <p class="stat-card__value" id="statRemaining">10</p>
+            </article>
+            <article class="stat-card">
+              <p class="stat-card__label">Average Score</p>
+              <p class="stat-card__value" id="statAverage">0.0</p>
+            </article>
+            <article class="stat-card">
+              <p class="stat-card__label">Duration</p>
+              <p class="stat-card__value" id="statDuration">00:00</p>
+            </article>
+          </div>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <div class="modal" id="summaryModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="summaryTitle">
+    <div class="modal-card">
+      <div class="section__head">
+        <div>
+          <h2 class="section__title" id="summaryTitle">Session Summary</h2>
+          <p class="section__desc">Final interview results and recommendation.</p>
+        </div>
+        <span class="badge badge--blue">Completed</span>
+      </div>
+
+      <div class="modal__grid">
+        <article class="modal__metric">
+          <p class="modal__metric-label">Questions Answered</p>
+          <p class="modal__metric-value" id="summaryAnswered">0</p>
+        </article>
+        <article class="modal__metric">
+          <p class="modal__metric-label">Average Score</p>
+          <p class="modal__metric-value" id="summaryAverage">0</p>
+        </article>
+        <article class="modal__metric">
+          <p class="modal__metric-label">Confidence Score</p>
+          <p class="modal__metric-value" id="summaryConfidence">78%</p>
+        </article>
+        <article class="modal__metric">
+          <p class="modal__metric-label">Communication Score</p>
+          <p class="modal__metric-value" id="summaryCommunication">82%</p>
+        </article>
+        <article class="modal__metric">
+          <p class="modal__metric-label">Strength</p>
+          <p class="modal__metric-value" id="summaryStrength">Clarity</p>
+        </article>
+        <article class="modal__metric">
+          <p class="modal__metric-label">Recommendation</p>
+          <p class="modal__metric-value recommendation" id="summaryRecommendation">Potential Candidate</p>
+        </article>
+      </div>
+
+      <div class="feedback-list">
+        <article class="feedback-card">
+          <h3 class="feedback-card__title">Strengths</h3>
+          <p class="feedback-card__text" id="summaryStrengthText">Clear structure and relevant technical points.</p>
+        </article>
+        <article class="feedback-card">
+          <h3 class="feedback-card__title">Weaknesses</h3>
+          <p class="feedback-card__text" id="summaryWeaknessText">Could add more detail on scaling and tradeoffs.</p>
+        </article>
+      </div>
+
+      <div class="action-row" style="margin-top: 16px;">
+        <button class="button button--blue" type="button" id="viewReportBtn">View Detailed Report</button>
+        <button class="button button--ghost" type="button" id="backToDashboardBtn">Return to Dashboard</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const journey = JSON.parse(localStorage.getItem("hireiq:studentJourney") || "{}");
+    const roleName = document.getElementById("heroRole");
+    const totalQuestions = document.getElementById("totalQuestions");
+    const answeredCount = document.getElementById("answeredCount");
+    const completionValue = document.getElementById("completionValue");
+    const heroStatus = document.getElementById("heroStatus");
+    const timerValue = document.getElementById("timerValue");
+    const progressFill = document.getElementById("progressFill");
+    const progressLabel = document.getElementById("progressLabel");
+    const currentQuestionLabel = document.getElementById("currentQuestionLabel");
+    const progressPercentLabel = document.getElementById("progressPercentLabel");
+    const questionText = document.getElementById("questionText");
+    const questionHint = document.getElementById("questionHint");
+    const liveStatusText = document.getElementById("liveStatusText");
+    const interviewerState = document.getElementById("interviewerState");
+    const answerInput = document.getElementById("answerInput");
+    const answerState = document.getElementById("answerState");
+    const micStatus = document.getElementById("micStatus");
+    const cameraState = document.getElementById("cameraState");
+    const cameraFrame = document.getElementById("cameraFrame");
+    const answerScore = document.getElementById("answerScore");
+    const statAnswered = document.getElementById("statAnswered");
+    const statRemaining = document.getElementById("statRemaining");
+    const statAverage = document.getElementById("statAverage");
+    const statDuration = document.getElementById("statDuration");
+    const feedbackList = document.getElementById("feedbackList");
+    const summaryModal = document.getElementById("summaryModal");
+    const summaryAnswered = document.getElementById("summaryAnswered");
+    const summaryAverage = document.getElementById("summaryAverage");
+    const summaryConfidence = document.getElementById("summaryConfidence");
+    const summaryCommunication = document.getElementById("summaryCommunication");
+    const summaryStrength = document.getElementById("summaryStrength");
+    const summaryRecommendation = document.getElementById("summaryRecommendation");
+    const summaryStrengthText = document.getElementById("summaryStrengthText");
+    const summaryWeaknessText = document.getElementById("summaryWeaknessText");
+    const sessionStatus = document.getElementById("sessionStatus");
+
+    const questions = [
+      {
+        question: "Explain how you would design a scalable authentication flow for a full stack application.",
+        hint: "Mention token management, password security, session handling, and refresh strategies."
+      },
+      {
+        question: "How do you handle database schema changes without breaking production systems?",
+        hint: "Talk about migrations, rollbacks, testing, and backward compatibility."
+      },
+      {
+        question: "Describe a time you optimized frontend performance in a real project.",
+        hint: "Cover rendering, bundle size, caching, and perceived loading improvements."
+      },
+      {
+        question: "How would you structure APIs for a clean and maintainable backend?",
+        hint: "Explain layering, validation, error handling, and versioning."
+      },
+      {
+        question: "What is your approach to debugging a production issue under pressure?",
+        hint: "Focus on logs, tracing, rollback planning, and communication."
+      },
+      {
+        question: "How would you improve code quality in a fast-moving team?",
+        hint: "Mention reviews, tests, linting, shared standards, and developer experience."
+      },
+      {
+        question: "Explain how you would design rate limiting for a public API.",
+        hint: "Discuss user identity, thresholds, storage, and graceful responses."
+      },
+      {
+        question: "How do you make sure your UI stays accessible and responsive?",
+        hint: "Cover semantic markup, keyboard support, contrast, and breakpoints."
+      },
+      {
+        question: "What tradeoffs do you consider when choosing a database?",
+        hint: "Compare relational and NoSQL options, consistency, and scale."
+      },
+      {
+        question: "Tell us how you would learn a new technology quickly for a project.",
+        hint: "Mention docs, experiments, building a small prototype, and feedback loops."
+      }
+    ];
+
+    const state = {
+      total: questions.length,
+      current: 0,
+      answered: 0,
+      scores: [],
+      durationSeconds: 0,
+      timer: null,
+      cameraOn: false,
+      micOn: false,
+      voiceOn: false,
+      complete: false
+    };
+
+    const selectedRole = journey.trackTitle || "Full Stack Developer";
+    roleName.textContent = selectedRole;
+    totalQuestions.textContent = String(state.total);
+
+    function formatDuration(seconds) {
+      const mins = String(Math.floor(seconds / 60)).padStart(2, "0");
+      const secs = String(seconds % 60).padStart(2, "0");
+      return `${mins}:${secs}`;
+    }
+
+    function setQuestion(index) {
+      const item = questions[index];
+      questionText.textContent = item.question;
+      questionHint.textContent = `Hint: ${item.hint}`;
+      progressLabel.textContent = `Question ${index + 1} of ${state.total}`;
+      currentQuestionLabel.textContent = `Current question: ${index + 1}`;
+      progressPercentLabel.textContent = `${Math.round(((index + 1) / state.total) * 100)}%`;
+      progressFill.style.width = `${((index + 1) / state.total) * 100}%`;
+    }
+
+    function updateStats() {
+      const remaining = state.total - state.answered;
+      const average = state.scores.length
+        ? (state.scores.reduce((sum, value) => sum + value, 0) / state.scores.length).toFixed(1)
+        : "0.0";
+
+      answeredCount.textContent = String(state.answered);
+      completionValue.textContent = `${Math.round((state.answered / state.total) * 100)}%`;
+      heroStatus.textContent = state.complete ? "Completed" : state.cameraOn ? "Monitoring" : state.micOn ? "Speaking" : "Waiting";
+      timerValue.textContent = formatDuration(Math.max(0, 18 * 60 - state.durationSeconds));
+      statAnswered.textContent = String(state.answered);
+      statRemaining.textContent = String(remaining);
+      statAverage.textContent = average;
+      statDuration.textContent = formatDuration(state.durationSeconds);
+      answerState.textContent = answerInput.value.trim() ? "Draft ready" : "Draft";
+      answerScore.textContent = `Score ${state.scores.length ? state.scores[state.scores.length - 1] : 0}/10`;
+      interviewerState.textContent = state.complete ? "Completed" : state.cameraOn ? "Watching" : "Listening";
+      liveStatusText.textContent = state.complete
+        ? "Session completed"
+        : state.micOn
+          ? "Microphone is active"
+          : "Listening for answer input";
+      cameraState.textContent = state.cameraOn ? "Camera On" : "Camera Off";
+      micStatus.textContent = state.micOn ? "Mic on" : "Mic off";
+      sessionStatus.textContent = state.complete ? "Session Complete" : "Live Interview";
+    }
+
+    function renderFeedback(score) {
+      const strength = score >= 8
+        ? "Strong structure, relevant depth, and clear technical language."
+        : score >= 6
+          ? "Good attempt with a few solid points."
+          : "Needs a more structured explanation.";
+
+      const weakness = score >= 8
+        ? "Could add a small note on tradeoffs and edge cases."
+        : score >= 6
+          ? "Could be stronger on implementation details."
+          : "Missing concrete examples and clear steps.";
+
+      feedbackList.innerHTML = `
+        <article class="feedback-card">
+          <h3 class="feedback-card__title">Strengths</h3>
+          <p class="feedback-card__text">${strength}</p>
+        </article>
+        <article class="feedback-card">
+          <h3 class="feedback-card__title">Weaknesses</h3>
+          <p class="feedback-card__text">${weakness}</p>
+        </article>
+        <article class="feedback-card">
+          <h3 class="feedback-card__title">Scoring</h3>
+          <p class="feedback-card__text">Answer score: ${score}/10 based on relevance, clarity, and depth.</p>
+        </article>
+      `;
+
+      summaryStrengthText.textContent = strength;
+      summaryWeaknessText.textContent = weakness;
+      summaryAverage.textContent = state.scores.length
+        ? (state.scores.reduce((sum, value) => sum + value, 0) / state.scores.length).toFixed(1)
+        : "0.0";
+      summaryAnswered.textContent = String(state.answered);
+      summaryConfidence.textContent = "78%";
+      summaryCommunication.textContent = "82%";
+      summaryStrength.textContent = score >= 8 ? "Clarity" : score >= 6 ? "Structure" : "Potential";
+      summaryRecommendation.textContent = score >= 8 ? "Strong Candidate" : score >= 6 ? "Potential Candidate" : "Needs Improvement";
+    }
+
+    function nextQuestion() {
+      if (state.current < state.total - 1) {
+        state.current += 1;
+        setQuestion(state.current);
+        updateStats();
+        return;
+      }
+      completeSession();
+    }
+
+    function completeSession() {
+      state.complete = true;
+      clearInterval(state.timer);
+      updateStats();
+      summaryModal.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+    }
+
+    function submitAnswer() {
+      const answer = answerInput.value.trim();
+      if (!answer) {
+        answerState.textContent = "Please write an answer first";
+        return;
+      }
+
+      const score = Math.max(4, Math.min(10, Math.round((answer.length / 220) * 10)));
+      state.answered += 1;
+      state.scores.push(score);
+      answerInput.value = "";
+      renderFeedback(score);
+      updateStats();
+      nextQuestion();
+    }
+
+    document.getElementById("replayBtn").addEventListener("click", () => {
+      liveStatusText.textContent = "Replaying question";
+    });
+
+    document.getElementById("voiceToggleBtn").addEventListener("click", (event) => {
+      state.voiceOn = !state.voiceOn;
+      event.currentTarget.textContent = state.voiceOn ? "Voice Playback On" : "Voice Playback Off";
+      event.currentTarget.setAttribute("aria-pressed", String(state.voiceOn));
+    });
+
+    document.getElementById("micStartBtn").addEventListener("click", () => {
+      state.micOn = true;
+      updateStats();
+    });
+
+    document.getElementById("micStopBtn").addEventListener("click", () => {
+      state.micOn = false;
+      updateStats();
+    });
+
+    document.getElementById("cameraOnBtn").addEventListener("click", () => {
+      state.cameraOn = true;
+      cameraFrame.innerHTML = `
+        <div>
+          <strong>Webcam active</strong>
+          <p style="margin: 8px 0 0; color: var(--text-muted);">Live preview placeholder enabled.</p>
+        </div>
+      `;
+      updateStats();
+    });
+
+    document.getElementById("cameraOffBtn").addEventListener("click", () => {
+      state.cameraOn = false;
+      cameraFrame.innerHTML = `
+        <div>
+          <strong>Webcam preview area</strong>
+          <p style="margin: 8px 0 0; color: var(--text-muted);">Camera is currently disabled.</p>
+        </div>
+      `;
+      updateStats();
+    });
+
+    document.getElementById("skipBtn").addEventListener("click", () => {
+      state.answered += 1;
+      state.scores.push(0);
+      updateStats();
+      nextQuestion();
+    });
+
+    document.getElementById("submitBtn").addEventListener("click", submitAnswer);
+    document.getElementById("endBtn").addEventListener("click", completeSession);
+
+    document.getElementById("viewReportBtn").addEventListener("click", () => {
+      summaryModal.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+    });
+
+    document.getElementById("backToDashboardBtn").addEventListener("click", () => {
+      window.location.href = "student-dashboard.html";
+    });
+
+    document.getElementById("reportBtn").addEventListener("click", () => {
+      const analysisId = localStorage.getItem("currentAnalysisId");
+      window.location.href = analysisId
+        ? `career-intelligence-report.html?id=${encodeURIComponent(analysisId)}`
+        : "career-intelligence-report.html";
+    });
+
+    answerInput.addEventListener("input", updateStats);
+
+    setQuestion(state.current);
+    updateStats();
+
+    state.timer = window.setInterval(() => {
+      state.durationSeconds += 1;
+      if (!state.complete) {
+        updateStats();
+      }
+    }, 1000);
+  </script>
+</body>
+</html>
